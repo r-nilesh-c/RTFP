@@ -1,0 +1,10 @@
+# Project specific
+/uploads/
+encryption.keys
+*.iml
+target/
+.idea/
+
+# Generated files
+### IntelliJ IDEA ###
+out/

@@ -1,0 +1,74 @@
+@startuml Secure File Transfer System
+
+' Style configurations
+skinparam class {
+    BackgroundColor White
+    ArrowColor #666666
+    BorderColor #666666
+}
+
+' Main Application
+class FileTransferApplication {
+    + main(args: String[]): void
+}
+note right: @SpringBootApplication\n@EnableScheduling
+
+' Controller
+class FileTransferController {
+    - logger: Logger
+    - uploadDir: String
+    - fileCleanupService: FileCleanupService
+    - EXPIRATION_TIME: long
+    + uploadFile(file: MultipartFile): ResponseEntity<?>
+    + downloadFile(fileId: String): ResponseEntity<?>
+    + cleanupExpiredFiles(): void
+}
+note right: @Controller
+
+' Service
+class FileCleanupService {
+    - logger: Logger
+    - uploadDir: String
+    - EXPIRATION_TIME: long
+    + cleanupExpiredFiles(): void
+    + deleteDirectory(path: Path): void
+}
+note right: @Service
+
+' Model
+class FileData {
+    - content: byte[]
+    - fileName: String
+    - contentType: String
+    - timestamp: long
+    + getters()
+}
+
+' Utilities
+class CodeGenerator {
+    - random: SecureRandom
+    - activeTokens: Set<String>
+    + generateUniqueCode(): String
+    + removeCode(code: String): void
+}
+
+class CustomByteCipher {
+    - secureRandom: SecureRandom
+    - KEY_INTERVAL: int
+    + encrypt(data: byte[]): byte[]
+    + decrypt(data: byte[]): byte[]
+}
+
+' Configuration
+
+
+' Relationships
+FileTransferApplication ..> FileTransferController: creates
+FileTransferController --> FileCleanupService: uses
+FileTransferController ..> FileData: uses
+FileTransferController ..> CodeGenerator: uses
+FileTransferController ..> CustomByteCipher: uses
+FileCleanupService ..> CodeGenerator: uses
+
+
+@enduml

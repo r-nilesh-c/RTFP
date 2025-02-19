@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Transfer System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h2>Send File</h2>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Send File</button>
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-text" id="progressText">0%</div>
+    </div>
+    <div class="status-message" id="statusMessage"></div>
+    <div id="uploadResult" class="result">
+        <div id="fileIdDisplay"></div>
+        <div id="countdown"></div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Receive File</h2>
+    <input type="text" id="fileId" placeholder="Enter file ID">
+    <button onclick="downloadFile()">Download File</button>
+</div>
+
+    <script src="fileTransfer.js"></script>
+    <script src="fileUpload.js"></script>
+</body>
+</html>
